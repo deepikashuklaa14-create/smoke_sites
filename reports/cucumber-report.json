@@ -1,0 +1,66 @@
+[
+  {
+    "description": "",
+    "elements": [
+      {
+        "description": "",
+        "id": "smoke-test-multiple-sites-and-pages;smoke-all-pages-of-a-site",
+        "keyword": "Scenario Outline",
+        "line": 9,
+        "name": "Smoke all pages of a site",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 328373500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "I open \"https://www.lsbf.edu.sg/\" homepage",
+            "match": {
+              "location": "features\\step_definitions\\smokeSteps.js:7"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 8589880900
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 5,
+            "name": "I run smoke tests for \"https://www.lsbf.edu.sg/\"",
+            "match": {
+              "location": "features\\step_definitions\\smokeSteps.js:15"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 7318822200
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 62866900
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "smoke-test-multiple-sites-and-pages",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Smoke test multiple sites and pages",
+    "tags": [],
+    "uri": "features\\smoke.feature"
+  }
+]
