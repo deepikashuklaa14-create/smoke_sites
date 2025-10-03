@@ -1,44 +1,24 @@
-const { Given ,Then,When} = require('@cucumber/cucumber');
-const { getPage } = require('../../hooks/hooks.js');
-const sites = require('../../data/sitePagesData.js')
-
-
+const { Given, Then } = require('@cucumber/cucumber');
+const { openHomepage, runSmokeTests, clickLinksCollectResults } = require('../../utils/smokeMethods.js');
 
 Given('I open {string} homepage', async function (siteUrl) {
-  this.siteConfig = sites.find(site => site.site === siteUrl);
-  if (!this.siteConfig) {
-    throw new Error(`Site configuration for "${siteUrl}" not found.`);
-  }
-  await this.page.goto(siteUrl);
+  await openHomepage.call(this, siteUrl);
 });
 
-Then('I run smoke tests for {string}', { timeout: 120000 }, async function(siteName) {
-  const page = this.page; // Use this.page instead of getPage()
-  const siteConfig = sites.find(site => site.site === siteName);
+Then('I run smoke tests for {string}', { timeout: 500000 }, async function (siteName) {
+  await runSmokeTests.call(this, siteName);
+});
 
-  if (!siteConfig) {
-    throw new Error(`Site configuration for "${siteName}" not found.`);
+Then('I click all links and save results to Excel report', async function () {
+  const urlsToCheck = this.siteConfig?.pages?.map(page => ({
+    url: `${this.siteConfig.site}${page.url}`,
+    expectedTitle: page.expectedTitle,
+  }));
+
+  if (!Array.isArray(urlsToCheck)) {
+    throw new Error('Failed to generate URLs to check from siteConfig');
   }
+// Prepare to write custom URLs test results here
 
-  for (const pageConfig of siteConfig.pages) {
-    const fullUrl = `${siteConfig.site}${pageConfig.url}`;
-    console.log(`Navigating to: ${fullUrl}`);
-    const response = await page.goto(fullUrl);
-    
-    // Wait for page to fully load
-    await page.waitForLoadState('load');
-
-    const actualTitle = await page.title();
-    if (actualTitle !== pageConfig.expectedTitle) {
-      console.error(`Title mismatch on ${fullUrl}: Expected "${pageConfig.expectedTitle}", but got "${actualTitle}"`);
-    } else {
-      console.log(`Title match on ${fullUrl}: "${actualTitle}"`);
-    }
-
-    if (response.status() !== 200) {
-      console.error(`Failed to load ${fullUrl}: Status code ${response.status()}`);
-    } else {
-      console.log(`Successfully loaded ${fullUrl}: Status code ${response.status()}`);
-    }
-  }
+  await clickLinksCollectResults.call(this, urlsToCheck);
 });

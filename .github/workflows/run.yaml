@@ -1,0 +1,30 @@
+name: Daily Smoke Test Run
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Runs every day at 6:00 AM UTC
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Smoke Test Script
+        run: node yourScript.js
+
+      - name: Upload Excel reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: smoke-test-reports
+          path: reports/*.xlsx

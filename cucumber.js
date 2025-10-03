@@ -6,6 +6,9 @@ module.exports = {
       'features/step_definitions/smokeSteps.js',
 
     ],
-    format: ['json:./reports/cucumber-report.json'],
+    // format: ['json:./reports/cucumber-report.json'],
+    default: `--format json:reports/cucumber_report.json`,
   },
 };
+
+
