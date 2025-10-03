@@ -21,7 +21,7 @@ jobs:
         run: npm install
 
       - name: Run Smoke Test Script
-        run: node yourScript.js
+        run: npx cucumber-js --tags @smoke --fail-fast
 
       - name: Upload Excel reports
         uses: actions/upload-artifact@v3
