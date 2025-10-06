@@ -3,7 +3,7 @@ module.exports = [
     site: "https://www.lsbf.edu.sg/",
     pages: [
 
-      { url: "", expectedTitle: "Where Ambition Meets Opportunity" },
+{ url: "", expectedTitle: "Where Ambition Meets Opportunity" },
 { url: "contact-us", expectedTitle: "CONTACT US" },
 { url: "programmes", expectedTitle: "Find the right programme" },
 { url: "programmes/diploma", expectedTitle: "Diploma Programmes" },
