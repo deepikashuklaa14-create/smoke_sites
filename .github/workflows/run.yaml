@@ -2,8 +2,7 @@ name: Daily Smoke Test Run
 
 on:
   schedule:
-  - cron: '30 7 * * *'  # 2:30 AM UTC = 1pm  IST daily
-
+    - cron: '30 7 * * *'  # 2:30 AM UTC = 1pm IST daily
 
 jobs:
   build:
@@ -20,6 +19,9 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps  # ✅ This step is critical
 
       - name: Run Smoke Test Script
         run: npx cucumber-js --tags @smoke --fail-fast
