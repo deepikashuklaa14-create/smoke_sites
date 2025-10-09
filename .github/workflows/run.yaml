@@ -21,13 +21,16 @@ jobs:
         run: npm install
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps  # ✅ This step is critical
+        run: npx playwright install --with-deps
 
       - name: Run Smoke Test Script
         run: npx cucumber-js --tags @smoke --fail-fast
+
+      - name: List reports folder contents
+        run: dir reports /s
 
       - name: Upload Excel reports
         uses: actions/upload-artifact@v4
         with:
           name: smoke-test-reports
-          path: reports/*.xlsx
+          path: reports/**/*.xlsx

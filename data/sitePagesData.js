@@ -146,9 +146,7 @@ module.exports = [
 { url: "discover/faculty/saminathan-malayandi", expectedTitle: "Saminathan Malayandi" },
 { url: "discover/faculty/yvonne-goh", expectedTitle: "Yvonne Goh" },
 { url: "discover/faculty/roy-goh", expectedTitle: "Roy Goh" },
-{ url: "discover/faculty/ghan-shyam-dubey", expectedTitle: "Ghan Shyam Dubey" },
-
-      
+{ url: "discover/faculty/ghan-shyam-dubey", expectedTitle: "Ghan Shyam Dubey" },     
 { url: "iscover/faculty/enoch-kevin", expectedTitle: "Enoch Kevin" },
 { url: "discover/faculty/savita-dubey", expectedTitle: "Savita Dubey" },
 { url: "discover/faculty/ian-lim", expectedTitle: "Ian Lim" },
