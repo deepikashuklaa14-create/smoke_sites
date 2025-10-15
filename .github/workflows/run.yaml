@@ -27,7 +27,7 @@ jobs:
         run: npx cucumber-js --tags @smoke --fail-fast
 
       - name: List reports folder contents
-        run: dir reports /s
+        run: Get-ChildItem -Recurse -Path reports
 
       - name: Upload Excel reports
         uses: actions/upload-artifact@v4

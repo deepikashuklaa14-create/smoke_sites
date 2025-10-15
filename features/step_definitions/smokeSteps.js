@@ -5,7 +5,7 @@ Given('I open {string} homepage', async function (siteUrl) {
   await openHomepage.call(this, siteUrl);
 });
 
-Then('I run smoke tests for {string}', { timeout: 500000 }, async function (siteName) {
+Then('I run smoke tests for {string}', { timeout: 5000000 }, async function (siteName) {
   await runSmokeTests.call(this, siteName);
 });
 

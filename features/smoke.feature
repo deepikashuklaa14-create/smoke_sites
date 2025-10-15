@@ -9,5 +9,6 @@ Feature: Smoke test multiple sites and pages
 
   Examples:
     | siteName                    |
-    | https://www.lsbf.edu.sg/    |
+     | https://www.lsbf.edu.sg/    |
+     | https://www.torontosom.ca/  |
   
