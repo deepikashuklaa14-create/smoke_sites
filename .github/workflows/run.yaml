@@ -2,7 +2,7 @@ name: Daily Smoke Test Run
 
 on:
   schedule:
-    - cron: '30 7 * * *'  # 2:30 AM UTC = 1pm IST daily
+    - cron: '0 6 * * 2'  # Every Tuesday at 11:30 AM IST
 
 jobs:
   build:
