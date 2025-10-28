@@ -1,36 +1,48 @@
-name: Daily Smoke Test Run
+name: Smoke Tests
 
 on:
-  schedule:
-    - cron: '30 7 * * 2'  # Every Tuesday at 1 PM IST
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  build:
-    runs-on: windows-latest
+  smoke-tests:
+    runs-on: windows-latest   # Use Windows since your steps are PowerShell-friendly
 
     steps:
-      - name: Checkout repo
+      # 1️⃣ Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
+      # 2️⃣ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 20
 
+      # 3️⃣ Install dependencies
       - name: Install dependencies
-        run: npm install
-
+        run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Run Smoke Test Script
-        run: npx cucumber-js --tags @smoke --fail-fast
+      # 4️⃣ Ensure reports folder exists
+      - name: Prepare reports folder
+        run: |
+          if (-not (Test-Path "reports")) { New-Item -ItemType Directory -Path "reports" }
 
-      - name: List reports folder contents
-        run: Get-ChildItem -Recurse -Path reports
-          
-      - name: Upload Excel reports
-        uses: actions/upload-artifact@v4
+      # 5️⃣ Run Cucumber smoke tests
+      - name: Run Smoke Tests
+        run: npx cucumber-js --tags "@smoke" --fail-fast
+
+      # 6️⃣ Generate HTML report
+      - name: Generate HTML Report
+        run: node report.js
+
+      # 7️⃣ Upload reports as artifacts
+      - name: Upload Reports
+        uses: actions/upload-artifact@v3
         with:
           name: smoke-test-reports
-          path: reports/**/*.xlsx
+          path: reports/
