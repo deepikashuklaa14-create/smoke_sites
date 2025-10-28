@@ -12,6 +12,7 @@
   "devDependencies": {
     "@cucumber/cucumber": "^12.2.0",
     "cucumber-html-reporter": "^7.2.0",
+    "multiple-cucumber-html-reporter": "^3.9.3",
     "playwright": "^1.55.0",
     "xlsx": "^0.18.5"
   },
