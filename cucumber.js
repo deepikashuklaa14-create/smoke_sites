@@ -7,7 +7,7 @@ module.exports = {
     ],
     // format: ['json:./reports/cucumber-report.json'],
     paths: ['features/**/*.feature'],
-      default: `--format json:reports/cucumber_report.json`,
+    default: `--format json:reports/cucumber_report.json`,
   },
 };
 
