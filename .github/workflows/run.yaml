@@ -36,9 +36,11 @@ jobs:
       - name: Run Smoke Tests
         run: npx cucumber-js --tags "@smoke" --fail-fast
 
-      # 6️⃣ Generate HTML report
+   # 7️⃣ Generate HTML report (fail gracefully)
       - name: Generate HTML Report
-        run: node report.js
+        run: |
+          echo "Generating HTML report..."
+          node report.js || echo "⚠️ report.js failed, skipping HTML report generation."
 
       # 7️⃣ Upload reports as artifacts
       - name: Upload Reports
