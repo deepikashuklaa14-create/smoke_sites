@@ -11,38 +11,38 @@ jobs:
     runs-on: windows-latest   # Use Windows since your steps are PowerShell-friendly
 
     steps:
-      # 1️⃣ Checkout repository
+      # 1️ Checkout repository
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2️⃣ Setup Node.js
+      # 2️ Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      # 3️⃣ Install dependencies
+      # 3️ Install dependencies
       - name: Install dependencies
         run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      # 4️⃣ Ensure reports folder exists
+      # 4️ Ensure reports folder exists
       - name: Prepare reports folder
         run: |
           if (-not (Test-Path "reports")) { New-Item -ItemType Directory -Path "reports" }
+ 
+  # 6️ Run Cucumber smoke tests via npm script
+      - name: Run Crawl and Validate Links Tests
+        run: npm run test -- --tags="@smoke"
 
-      # 5️⃣ Run Cucumber smoke tests
-      - name: Run Smoke Tests
-        run: npx cucumber-js --tags "@smoke" --fail-fast
+      # 7️ Generate HTML report (fail gracefully)
+      - name: Generate HTML Report
+        run: |
+          echo "Generating HTML report..."
+          node generate-html.js || echo "⚠️ HTML report generation failed or JSON missing."
 
-  #  # 7️⃣ Generate HTML report (fail gracefully)
-  #     - name: Generate HTML Report
-  #       run: |
-  #         echo "Generating HTML report..."
-  #         node report.js || echo "⚠️ report.js failed, skipping HTML report generation."
-
-      # 7️⃣ Upload reports as artifacts
+      # 7️ Upload reports as artifacts
       - name: Upload Reports
         uses: actions/upload-artifact@v4
         with:
